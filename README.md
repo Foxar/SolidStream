@@ -13,16 +13,12 @@ SolidStream is a training project aimed at learning React.js and Symfony by crea
 - React Player 2.9
 - React Router 5.2
 
-## Dependancies
 
-`sudo apt-get install php-xml`
+## Installation
 
 You need to install Symfony Cli tool:
 
 https://symfony.com/download
-
-
-## Installation
 
 ### Web application
 1. Run `composer install`
