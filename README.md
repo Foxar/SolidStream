@@ -6,6 +6,7 @@
 SolidStream is a training project aimed at learning React.js and Symfony by creating a simple fullstack web application allowing users to view as well as publish live video streams.
 
 ## Technologies
+- PHP 7.4
 - Symfony 5.2
 - React 17.02
 - Webpack, Encore
