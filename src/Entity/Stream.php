@@ -5,6 +5,12 @@ namespace App\Entity;
 use App\Repository\StreamRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+//UUID
+use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
+use Symfony\Component\Uid\Uuid;
+
+
+
 //Validation
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,33 +21,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Stream
 {
-    /**
+     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class=UuidV4Generator::class)
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="guid", unique=true)
-     * @Assert\Uuid
-     */
-    private $StreamKey;
-
-    public function getId(): ?int
+    public function getId(): ?Uuid
     {
         return $this->id;
-    }
-
-    public function getStreamKey(): ?string
-    {
-        return $this->StreamKey;
-    }
-
-    public function setStreamKey(string $StreamKey): self
-    {
-        $this->StreamKey = $StreamKey;
-
-        return $this;
     }
 }
