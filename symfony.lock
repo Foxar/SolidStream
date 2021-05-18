@@ -243,6 +243,9 @@
     "symfony/polyfill-php80": {
         "version": "v1.22.1"
     },
+    "symfony/polyfill-uuid": {
+        "version": "v1.22.1"
+    },
     "symfony/proxy-manager-bridge": {
         "version": "v5.2.4"
     },
@@ -291,6 +294,22 @@
     },
     "symfony/twig-pack": {
         "version": "v1.0.1"
+    },
+    "symfony/uid": {
+        "version": "v5.2.6"
+    },
+    "symfony/validator": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "d902da3e4952f18d3bf05aab29512eb61cabd869"
+        },
+        "files": [
+            "config/packages/test/validator.yaml",
+            "config/packages/validator.yaml"
+        ]
     },
     "symfony/var-dumper": {
         "version": "v5.2.7"
