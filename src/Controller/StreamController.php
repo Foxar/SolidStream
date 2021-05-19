@@ -69,7 +69,7 @@ class StreamController extends AbstractController
             getRepository(Stream::class)->
             findOneBy(['id' => $UUID]);
         }
-        catch(\InvalidArgumentException $ex){
+        catch(\Throwable $t){
             $streams = NULL;
         }
         
