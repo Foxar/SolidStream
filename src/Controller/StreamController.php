@@ -12,6 +12,8 @@ use App\Entity\Stream;
 use Symfony\Component\Uid\Uuid;
 
 
+use Symfony\Component\Console\Output\OutputInterface;
+
 
 class StreamController extends AbstractController
 {
@@ -20,31 +22,33 @@ class StreamController extends AbstractController
      */
     public function deleteStream(Request $request): Response
     {
-        $streamDoctrine = $this->getDoctrine();
-        $streamManager = $streamDoctrine->getManager();
-
+        //Try validating nginx-rtmp request's 'name', which is the stream key
         try{
-            $id = Uuid::fromString($request->request->get('id'));
+            $id = Uuid::fromString($request->request->get('name'));
         }
-        catch(\InvalidArgumentException $ex){
+        catch(\Throwable $t){
             return new Response("Invalid Stream UUID requested!", Response::HTTP_BAD_REQUEST);
         }
-        $stream = $streamDoctrine->getRepository(Stream::class)->find($id);
+
+        //Find the stream by the stream key, which is also it's id
+        $stream = $this->getDoctrine()->getRepository(Stream::class)->find($id);
+
+        //Return if not found
         if($stream == null)
         {
             return new Response("Failed to find stream '" . $id . "' !", Response::HTTP_NOT_FOUND);
         }
         else
         {
-            $streamManager->remove($stream);
-            $streamManager->flush();
+            $this->getDoctrine()->getManager()->remove($stream);
+            $this->getDoctrine()->getManager()->flush();
             return new Response("Deleted stream " . $id);
         }
     }
     /**
      * @Route("/api/createstream", name="createstream", methods={"POST"})
      */
-    public function createStream(Request $request, LoggerInterface $logger): Response
+    public function createStream(Request $request): Response
     {
         //Get the manager for Stream entity
         $streamManager = $this->getDoctrine()->getManager();
@@ -54,34 +58,22 @@ class StreamController extends AbstractController
         $streamManager->persist($stream);
         $streamManager->flush();
     
-
         return new JsonResponse(["message"=>"Created stream.","id" => $stream->getId()]);
     }
+
+
     /**
      * @Route("/api/checkstream", name="checkstream", methods={"POST"})
      */
-    public function checkstream(Request $request): Response
+    public function checkstream(Request $request, LoggerInterface $logger): Response
     {
         try{
-            $UUID = Uuid::fromString($request->request->get('id'));
-            $streams = $this->
-            getDoctrine()->
-            getRepository(Stream::class)->
-            findOneBy(['id' => $UUID]);
+            $id = Uuid::fromString($request->request->get('name'));
+            $stream = $this->getDoctrine()->getRepository(Stream::class)->find($id);
         }
         catch(\Throwable $t){
-            $streams = NULL;
+            return Response("Invalid stream key!",Response::HTTP_FORBIDDEN);
         }
-        
-        if($streams == NULL)
-        {
-            $response = new Response("Invalid stream key!",Response::HTTP_FORBIDDEN);
-        }
-        else
-        {
-            $response = new Response("Valid stream key!",Response::HTTP_OK);
-        }
-        return $response;
-        
+        return new Response("Valid stream key!",Response::HTTP_OK);
     }
 }
