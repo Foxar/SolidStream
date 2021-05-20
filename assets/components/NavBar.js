@@ -9,6 +9,7 @@ export default function NavBar() {
             <div><Link to="/test">Test page</Link></div>
             <div><Link to="/player">Player</Link></div>
             <div><Link to="/login">Login</Link></div>
+            <div><Link to="/streamingpanel">Streaming</Link></div>
         </div>
     );
 }

@@ -1,0 +1,26 @@
+div.streamingPanel{
+    display:flex;
+    flex-direction: column;
+    padding: 3em;
+
+    .buttons{
+        button{
+            margin: 1em;
+        }
+    }
+    .errorMessage{
+        font-weight: bold;
+        padding: 1em;
+        background-color: rgba(255, 0, 0, 0.459);
+    }
+    .deleteMessage{
+        font-weight: bold;
+        padding: 1em;
+        background-color: rgba(255, 132, 0, 0.672);
+    }
+    .streamingKey{
+        font-weight: bold;
+        padding: 1em;
+        background-color: rgba(0, 255, 55, 0.459);
+    }
+}
