@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
-
+import Cookies from 'js-cookie';
 
 class LoginPage extends Component {
     constructor() {
         super();
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            errorMessage: ''
         }
         this.handleUserChange = this.handleUserChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.saveError = this.saveError.bind(this);
     }
 
     handleUserChange(e) {
@@ -26,7 +28,15 @@ class LoginPage extends Component {
         });
     }
 
-    handleSubmit() {
+    saveError(msg) {
+        this.setState({
+            errorMessage: msg
+        });
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+
         //Submit login data to backend, save the JWT token and save as a cookie to pass on 
         //with each next api call.
         const data = {
@@ -41,22 +51,21 @@ class LoginPage extends Component {
             body: JSON.stringify(data)
         });
         responsePromise.then(response => {
+            //If the login_check response is OK, save the JWT token:
             if (response.ok) {
-                console.log("Valid login!");
-                console.log("JWT Token: ");
                 response.json().then(
                     data => {
-                        console.log(data.token);
+                        Cookies.set('jwt-token', data.token);
+                        this.saveError("");
                     }
                 );
             } else {
-                console.log("Invalid login!");
-                console.log(response.statusText);
-                response.json().then(
-                    data => {
-                        console.log(data);
-                    }
-                );
+                //Otherwise, display error message.
+                if (response.status == 401) {
+                    this.saveError("Invalid credentials!");
+                }
+                else
+                    this.saveError("Unknown error!");
             }
         });
     }
@@ -68,6 +77,7 @@ class LoginPage extends Component {
             <div className="loginPage">
                 <form className="loginForm" onSubmit={this.handleSubmit}>
                     <h4>Log in to SolidStream!</h4>
+                    {this.state.errorMessage && (<p className="errorMessage">{this.state.errorMessage}</p>)}
                     <label>Username:</label>
                     <input type="text" value={this.state.username} onChange={this.handleUserChange}></input>
 

@@ -7,6 +7,11 @@ div.loginPage{
         background-color: rgba(255, 255, 255, 0.356);
         display: flex;
         flex-direction: column;
+        .errorMessage{
+            font-weight: bold;
+            padding: 1em;
+            background-color: rgba(255, 0, 0, 0.459);
+        }
         input {
             margin-top: 5px;
             margin-bottom: 15px;
