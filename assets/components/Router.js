@@ -7,12 +7,16 @@ import {
     Link,
     Route,
 } from 'react-router-dom';
+import LoginPage from './LoginPage/LoginPage.js';
 
 export default function AppRouter() {
     return (
         <Router>
             <NavBar />
             <Switch>
+                <Route path="/login">
+                    <LoginPage />
+                </Route>
                 <Route path="/test">
                     <h1>Test Page!</h1>
                 </Route>
