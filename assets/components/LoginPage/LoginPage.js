@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactPlayer from 'react-player';
 import Cookies from 'js-cookie';
 
 class LoginPage extends Component {
