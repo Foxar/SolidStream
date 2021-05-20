@@ -1,7 +1,9 @@
 @import './components/NavBar.scss';
 @import './components/PlayerView/PlayerPage.scss';
+@import './components/LoginPage/LoginPage.scss';
+@import './components/Streaming/StreamingPanel/StreamingPanel.scss';
 body {
-    background-color: lightgray;
+    background-color: rgb(255, 254, 184);
     margin: 0;
 
 }
