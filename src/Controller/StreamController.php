@@ -72,8 +72,13 @@ class StreamController extends AbstractController
             $stream = $this->getDoctrine()->getRepository(Stream::class)->find($id);
         }
         catch(\Throwable $t){
-            return Response("Invalid stream key!",Response::HTTP_FORBIDDEN);
+            return new Response("Invalid stream key!",Response::HTTP_FORBIDDEN);
         }
-        return new Response("Valid stream key!",Response::HTTP_OK);
+        if($stream == null)
+        {
+            return new Response("Stream not found!",Response::HTTP_NOT_FOUND);
+        }
+        else
+            return new Response("Valid stream key!",Response::HTTP_OK);
     }
 }
