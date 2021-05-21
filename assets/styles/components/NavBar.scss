@@ -1,9 +1,25 @@
 
 .navbar{
+    padding: 1em 2em;
     display: flex;
     background-color:aquamarine;
     flex-direction: row;
-    div{
-        padding: 1em;
+    justify-content: space-between;
+    .links{
+        display: flex;
+        flex-direction: row;
+        div{
+            padding: 1em;
+        }
+    }
+    div.profile{
+        display: flex;
+        flex-direction: column;
+        p{
+            margin: 0;
+        }
+        .loggedInAs{
+            font-weight: bold;
+        }
     }
 }
