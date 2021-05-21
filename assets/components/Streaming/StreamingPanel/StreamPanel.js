@@ -15,8 +15,12 @@ class StreamPanel extends Component {
     }
 
     handleStartStream() {
-        const responsePromise = fetch('http://localhost:8000/api/createstream', {
-            method: 'POST'
+
+        const responsePromise = fetch('http://localhost:8000/secureapi/createstream', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'BEARER '.concat(Cookies.get('jwt-token'))
+            }
         });
         responsePromise.then(response => {
             if (response.ok) {
@@ -24,6 +28,9 @@ class StreamPanel extends Component {
                 response.json().then(
                     data => { this.setState({ streamID: data.id }); }
                 );
+            }
+            else if (response.status == 401) {
+                this.setState({ errorMessage: "Authorization error, please log in!" });
             } else {
                 this.setState({ errorMessage: "Unknown error!" });
             }

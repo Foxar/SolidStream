@@ -46,7 +46,7 @@ class StreamController extends AbstractController
         }
     }
     /**
-     * @Route("/api/createstream", name="createstream", methods={"POST"})
+     * @Route("/secureapi/createstream", name="createstream", methods={"POST"})
      */
     public function createStream(Request $request): Response
     {
