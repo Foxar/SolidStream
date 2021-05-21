@@ -10,13 +10,28 @@ use Symfony\Component\Routing\Annotation\Route;
 use Psr\Log\LoggerInterface;
 use App\Entity\Stream;
 use Symfony\Component\Uid\Uuid;
-
+use App\Service\UserService;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
 
 class StreamController extends AbstractController
 {
+    /**
+     * @Route("/api/randomstreams", name="randomstreams")
+     */
+    public function listStreams(): Response
+    {
+        $streams = $this->getDoctrine()->getRepository(Stream::class)->getRandom(5);
+        if(!$streams)
+        {
+            return new Response("Couldn't find any streams!", Response::HTTP_NOT_FOUND);
+        }
+        else
+        {
+            return new JsonResponse(["streams"=>$streams]);
+        }
+    }
     /**
      * @Route("/api/deletestream", name="deletestream", methods={"POST"})
      */
@@ -48,13 +63,19 @@ class StreamController extends AbstractController
     /**
      * @Route("/secureapi/createstream", name="createstream", methods={"POST"})
      */
-    public function createStream(Request $request): Response
+    public function createStream(Request $request, UserService $userService): Response
     {
+        //Get current user
+        $user = $userService->getCurrentUser();
+        if($user == null)
+            return new Response("Failed to authorize user!",Response::HTTP_UNAUTHORIZED);
+
         //Get the manager for Stream entity
         $streamManager = $this->getDoctrine()->getManager();
 
         //Create new object of Stream entity
         $stream = new Stream();
+        $stream->setStreamer($user);
         $streamManager->persist($stream);
         $streamManager->flush();
     

@@ -19,6 +19,18 @@ class StreamRepository extends ServiceEntityRepository
         parent::__construct($registry, Stream::class);
     }
 
+    /**
+     * @return Stream[] Returns an array of Stream objects
+     */
+    public function getRandom($count=5)
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.id', 'ASC')
+            ->setMaxResults($count)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Stream[] Returns an array of Stream objects
     //  */
