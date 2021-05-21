@@ -54,8 +54,31 @@ class LoginPage extends Component {
             if (response.ok) {
                 response.json().then(
                     data => {
+                        //Save the JWT token to a cookie, clear error messages.
                         Cookies.set('jwt-token', data.token);
                         this.saveError("");
+
+
+                        //Fetch user entity of the user that has logged in.
+                        fetch('http://localhost:8000/secureapi/currentUser', {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': 'BEARER '.concat(Cookies.get('jwt-token'))
+                            }
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    response.json().then(
+                                        data => {
+                                            Cookies.set('username', data.username);
+                                            Cookies.set('userid', data.id);
+                                            window.location.assign("/");
+                                        }
+                                    );
+                                } else {
+                                    this.saveError("Unknown error!");
+                                }
+                            });
                     }
                 );
             } else {
