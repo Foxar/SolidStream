@@ -27,11 +27,9 @@ class StreamController extends AbstractController
     /**
      * @Route("/api/randomstreams", name="randomstreams")
      */
-    public function listStreams(LoggerInterface $logger): Response
+    public function listStreams(): Response
     {
         $streams = $this->getDoctrine()->getRepository(Stream::class)->getRandom(5);
-        $logger->info($streams);
-
         
         if(!$streams)
         {
