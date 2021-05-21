@@ -29,8 +29,26 @@ class Stream
      */
     private $id;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="stream", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Streamer;
+
     public function getId(): ?Uuid
     {
         return $this->id;
+    }
+
+    public function getStreamer(): ?User
+    {
+        return $this->Streamer;
+    }
+
+    public function setStreamer(User $Streamer): self
+    {
+        $this->Streamer = $Streamer;
+
+        return $this;
     }
 }

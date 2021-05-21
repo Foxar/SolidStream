@@ -40,6 +40,11 @@ class User implements UserInterface
      */
     private $apiToken;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Stream::class, mappedBy="Streamer", cascade={"persist", "remove"})
+     */
+    private $stream;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -124,6 +129,23 @@ class User implements UserInterface
     public function setApiToken(?string $apiToken): self
     {
         $this->apiToken = $apiToken;
+
+        return $this;
+    }
+
+    public function getStream(): ?Stream
+    {
+        return $this->stream;
+    }
+
+    public function setStream(Stream $stream): self
+    {
+        // set the owning side of the relation if necessary
+        if ($stream->getStreamer() !== $this) {
+            $stream->setStreamer($this);
+        }
+
+        $this->stream = $stream;
 
         return $this;
     }
