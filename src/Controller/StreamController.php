@@ -11,6 +11,13 @@ use Psr\Log\LoggerInterface;
 use App\Entity\Stream;
 use Symfony\Component\Uid\Uuid;
 use App\Service\UserService;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\UidNormalizer;
+
 
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -20,16 +27,20 @@ class StreamController extends AbstractController
     /**
      * @Route("/api/randomstreams", name="randomstreams")
      */
-    public function listStreams(): Response
+    public function listStreams(LoggerInterface $logger): Response
     {
         $streams = $this->getDoctrine()->getRepository(Stream::class)->getRandom(5);
+        $logger->info($streams);
+
+        
         if(!$streams)
         {
             return new Response("Couldn't find any streams!", Response::HTTP_NOT_FOUND);
         }
         else
         {
-            return new JsonResponse(["streams"=>$streams]);
+            //return new JsonResponse(["streams"=>$streams]);
+            return new JsonResponse($streams);
         }
     }
     /**

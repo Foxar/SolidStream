@@ -5,6 +5,15 @@ namespace App\Repository;
 use App\Entity\Stream;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\UidNormalizer;
+use Symfony\Component\Uid\Uuid;
+use Psr\Log\LoggerInterface;
+
 
 /**
  * @method Stream|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,21 +23,34 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class StreamRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $logger;
+    public function __construct(ManagerRegistry $registry, LoggerInterface $logger)
     {
         parent::__construct($registry, Stream::class);
+        $this->logger = $logger;
     }
 
-    /**
-     * @return Stream[] Returns an array of Stream objects
-     */
+    //Returns a JSON array
     public function getRandom($count=5)
     {
-        return $this->createQueryBuilder('s')
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults($count)
-            ->getQuery()
-            ->getResult();
+        $arr = $this->createQueryBuilder('s')
+        ->orderBy('s.id', 'ASC')
+        ->setMaxResults($count)
+        ->getQuery()
+        ->getResult();
+
+        $barr = array();
+        foreach($arr as &$a)
+        {
+            $b = ["string_id" =>"".$a->getId()->__toString(),
+                  "streamer" => [
+                      "id" => $a->getStreamer()->getId(),
+                      "username" => $a->getStreamer()->getUsername()
+            ]];
+            
+            array_push($barr,$b);
+        }
+        return(json_encode($barr));
     }
 
     // /**
