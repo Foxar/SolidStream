@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
+
+use App\Entity\ChatMessage;
+use App\Entity\Chat;
+
+class ChatMessageController extends AbstractController
+{
+
+    /**
+     * @Route("/api/postMessageTo", name="postMessageTo", methods={"POST"})
+     */
+    public function sendMessage(Request $request): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(ChatMessage::class);
+        $repo->addMessageToChat($request->request->get('chatID'),
+                                $request->request->get('message'));
+        return new JsonResponse("Posted message!",Response::HTTP_CREATED);
+
+    }
+    /**
+     * @Route("/api/getChatMessages", name="getChatMessages", methods={"GET"})
+     */
+    public function getChatMessages(Request $request): Response
+    {
+        $messages = $this->getDoctrine()
+                            ->getRepository(ChatMessage::class)
+                            ->getLastChatMessages($request->request->get('chatID'), 10);
+        return new JsonResponse(json_encode($messages));
+    }
+
+}
