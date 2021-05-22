@@ -35,6 +35,11 @@ class Stream
      */
     private $Streamer;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Chat::class, mappedBy="stream", cascade={"persist", "remove"})
+     */
+    private $chat;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -48,6 +53,23 @@ class Stream
     public function setStreamer(User $Streamer): self
     {
         $this->Streamer = $Streamer;
+
+        return $this;
+    }
+
+    public function getChat(): ?Chat
+    {
+        return $this->chat;
+    }
+
+    public function setChat(Chat $chat): self
+    {
+        // set the owning side of the relation if necessary
+        if ($chat->getStream() !== $this) {
+            $chat->setStream($this);
+        }
+
+        $this->chat = $chat;
 
         return $this;
     }

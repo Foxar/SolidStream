@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -44,6 +46,16 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity=Stream::class, mappedBy="Streamer", cascade={"persist", "remove"})
      */
     private $stream;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ChatMessage::class, mappedBy="Author")
+     */
+    private $chatMessages;
+
+    public function __construct()
+    {
+        $this->chatMessages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -146,6 +158,36 @@ class User implements UserInterface
         }
 
         $this->stream = $stream;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ChatMessage[]
+     */
+    public function getchatMessages(): Collection
+    {
+        return $this->chatMessages;
+    }
+
+    public function addchatMessages(ChatMessage $chatMessages): self
+    {
+        if (!$this->chatMessages->contains($chatMessages)) {
+            $this->chatMessages[] = $chatMessages;
+            $chatMessages->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removechatMessages(ChatMessage $chatMessages): self
+    {
+        if ($this->chatMessages->removeElement($chatMessages)) {
+            // set the owning side to null (unless already changed)
+            if ($chatMessages->getAuthor() === $this) {
+                $chatMessages->setAuthor(null);
+            }
+        }
 
         return $this;
     }
