@@ -30,7 +30,6 @@ class ChatController extends AbstractController
                 Response::HTTP_BAD_REQUEST);
         }
         
-
         return new JsonResponse(
             [   "chatID"=>$chat->getId(),
                 "stream id"=>$chat->getStream()->getId()],
@@ -41,8 +40,15 @@ class ChatController extends AbstractController
      * @Route("/api/getStreamChat", name="getStreamChat", methods={"GET"})
      */
     public function getStreamChat(Request $request): Response
-    {
-        $chat = $this->getDoctrine()->getRepository(Chat::class)->find($request->request->get('streamID'));
+    {   
+        try{
+            $chat = $this->getDoctrine()->getRepository(Chat::class)->find($request->query->get('streamID'));
+        }catch(\Exception $e){
+            return new JsonResponse(
+                [   "message"=>'Invalid streamID provided!',
+                    "error"=>$e->getMessage()],
+                Response::HTTP_BAD_REQUEST);
+        }
         return new JsonResponse($chat);
 
     }
