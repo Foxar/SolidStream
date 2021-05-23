@@ -14,37 +14,25 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ChatRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $em
+    public function __construct(ManagerRegistry $registry, EntityManager $em)
     {
         parent::__construct($registry, Chat::class);
+        $this->em = $em;
     }
 
-    // /**
-    //  * @return Chat[] Returns an array of Chat objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function createChat($streamID)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        if($streamID == null)
+            throw new \Exception('Attempted to create chat with null streamID!');
+        
+        $newChat = new Chat();
+        $stream = $this->em->getRepository(Stream::class)->find($streamID);
+        $newChat->setStream($stream);
 
-    /*
-    public function findOneBySomeField($value): ?Chat
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $this->em->persist($newChat);
+        $this->em->flush();
+        return $newChat;
     }
-    */
+
 }

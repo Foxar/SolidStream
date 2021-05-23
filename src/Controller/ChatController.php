@@ -18,15 +18,18 @@ class ChatController extends AbstractController
      */
     public function createStreamChat(Request $request): Response
     {
-        //Move most of this stuff to chatrepository soon.
-        $chat = new Chat();
-        $stream = $this->getDoctrine()
-                        ->getRepository(Stream::class)
-                        ->find($request->request->get('streamID'));
-        $chat->setStream($stream);
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($chat);
-        $manager->flush($chat);
+        try{
+            $chat = $this->getDoctrine()
+                            ->getRepository(Chat::class)
+                            ->createChat($request->request->get('streamID'));
+                            
+        }catch(\Exception $e){
+            return new JsonResponse(
+                [   "message"=>"Failed to create chat!"
+                    "error"=>$e->getMessage()],
+                Response::HTTP_BAD_REQUEST);
+        }
+        
 
         return new JsonResponse(
             [   "chatID"=>$chat->getId(),
