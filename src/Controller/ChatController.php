@@ -22,10 +22,10 @@ class ChatController extends AbstractController
             $chat = $this->getDoctrine()
                             ->getRepository(Chat::class)
                             ->createChat($request->request->get('streamID'));
-                            
+
         }catch(\Exception $e){
             return new JsonResponse(
-                [   "message"=>"Failed to create chat!"
+                [   "message"=>"Failed to create chat!",
                     "error"=>$e->getMessage()],
                 Response::HTTP_BAD_REQUEST);
         }

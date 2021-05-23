@@ -25,7 +25,7 @@ class ChatMessageController extends AbstractController
                                     $request->request->get('message'));
         }catch(\Exception $e){
             return new JsonResponse(
-                [   "message"=>"Failed to create chat message!"
+                [   "message"=>"Failed to create chat message!",
                     "error"=>$e->getMessage()],
                 Response::HTTP_BAD_REQUEST);
         }
@@ -43,7 +43,7 @@ class ChatMessageController extends AbstractController
                             ->getLastChatMessages($request->request->get('chatID'), 10);
         }catch(\Exception $e){
             return new JsonResponse(
-                [   "message"=>"Failed to get chat messages!"
+                [   "message"=>"Failed to get chat messages!",
                     "error"=>$e->getMessage()],
                 Response::HTTP_BAD_REQUEST);
         }

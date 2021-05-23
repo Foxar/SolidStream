@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Chat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 /**
  * @method Chat|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,8 +16,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ChatRepository extends ServiceEntityRepository
 {
-    private $em
-    public function __construct(ManagerRegistry $registry, EntityManager $em)
+    private $em;
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
     {
         parent::__construct($registry, Chat::class);
         $this->em = $em;
