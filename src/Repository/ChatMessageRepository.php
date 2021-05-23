@@ -35,7 +35,12 @@ class ChatMessageRepository extends ServiceEntityRepository
     //This method will add a message to given chat.
     public function addMessageToChat($chatID, $msg)
     {
+        if($chatID == null)
+            throw new Exception('Attempted to create message with null chatID!');
         $chat = $this->em->getRepository(Chat::class)->find($chatID);
+        if($chat == null)
+            throw new Exception('Attempted to create message with non-existant chat!');
+        
 
         $chatMessage = new ChatMessage();
         $chatMessage->setText($msg);
@@ -50,6 +55,8 @@ class ChatMessageRepository extends ServiceEntityRepository
      */
     public function getLastChatMessages($chatID, $count=10)
     {
+        if($chatID == null)
+            throw new Exception('Attempted to get messages with invalid chat ID!');
         
         return $this->createQueryBuilder('c')
             ->andWhere('c.chat = :chatID')
