@@ -80,13 +80,13 @@ class StreamController extends AbstractController
             return new Response("Failed to authorize user!",Response::HTTP_UNAUTHORIZED);
 
         //Get the manager for Stream entity
-        $streamManager = $this->getDoctrine()->getManager();
-
-        //Create new object of Stream entity
-        $stream = new Stream();
-        $stream->setStreamer($user);
-        $streamManager->persist($stream);
-        $streamManager->flush();
+        try{
+            $streamManager = $this->getDoctrine()->getRepository(Stream::class)->createStream($user->getId());
+        }catch(\Exception $e){
+            return new JsonResponse(["message"=>"Error creating the stream!",
+                                     "error"=>$e->getMessage()],
+                                     Response::HTTP_BAD_REQUEST);
+        }
     
         return new JsonResponse(["message"=>"Created stream.","id" => $stream->getId()]);
     }

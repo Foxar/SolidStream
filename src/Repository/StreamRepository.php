@@ -18,10 +18,25 @@ use Psr\Log\LoggerInterface;
 class StreamRepository extends ServiceEntityRepository
 {
     private $logger;
-    public function __construct(ManagerRegistry $registry, LoggerInterface $logger)
+    private $em;
+    public function __construct(ManagerRegistry $registry, LoggerInterface $logger, EntityManagerInterface $em)
     {
         parent::__construct($registry, Stream::class);
         $this->logger = $logger;
+        $this->em = $em;
+    }
+
+    public function createStream($userID)
+    {
+        if($userID == null)
+            throw new Exception("Invalid userID!");
+        
+        $streamer = $this->em->getRepository(User::class)->find($userID);
+        $newStream = new Stream();
+        $newStream->setStreamer($streamer);
+        
+        $this->em->persist($newStream);
+        $this->em->flush();
     }
 
     //Returns a JSON array
