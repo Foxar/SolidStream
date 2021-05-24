@@ -1,5 +1,5 @@
 # SolidStream
-
+[![Coverage Status](https://coveralls.io/repos/github/Foxar/SolidStream/badge.svg?branch=main)](https://coveralls.io/github/Foxar/SolidStream?branch=main)
 
 ## About
 
