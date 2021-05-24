@@ -1,6 +1,12 @@
 api_login_check:
   path: /api/login_check
 
+catchUnknownApi:
+  path: /api/{req}
+  defaults: { _controller: 'App\Controller\HomeController::unknownApiEndpoint'}
+  requirements:
+    req: ".*"
+
 catchAll:
   path: /{req}
   defaults: { _controller: 'App\Controller\HomeController::index' }

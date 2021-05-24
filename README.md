@@ -59,3 +59,11 @@ To start, first either compile the front end SPA with either:
 Then, in a separate terminal, run symfony with:
 
 `symfony server:start`
+
+
+## Running tests
+
+In the terminal run at project root directory:
+
+`php vendor/bin/phpunit`
+
