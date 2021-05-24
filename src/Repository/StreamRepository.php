@@ -7,6 +7,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;
 use Psr\Log\LoggerInterface;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 
 /**
