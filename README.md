@@ -66,3 +66,4 @@ Then, in a separate terminal, run symfony with:
 In the terminal run at project root directory:
 
 `php vendor/bin/phpunit`
+
