@@ -25,11 +25,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
           
-      - name: phpunit-coverage-badge
+      - name: PHPUnit for Symfony
         # You may pin to the exact commit or the version.
-        # uses: timkrase/phpunit-coverage-badge@29e63a46fd2b558fadefaa1699c6aa5892bd5791
-        uses: timkrase/phpunit-coverage-badge@v1.2.0
-        with:
-          coverage_badge_path: 'badge.svg'
-          push_badge: true
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        # uses: chindit/actions-phpunit-symfony@c02bff1f84d757d030c15e2985be601cdba3039e
+        uses: chindit/actions-phpunit-symfony@1.0.0
