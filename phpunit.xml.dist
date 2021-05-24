@@ -24,6 +24,15 @@
             <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
+    <coverage cacheDirectory=".phpunit.cache/code-coverage" processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <report>
+            <clover outputFile="clover.xml" />
+        </report>
+    </coverage>
+
 
     <!-- Run `composer require symfony/phpunit-bridge` before enabling this extension -->
     <!--
