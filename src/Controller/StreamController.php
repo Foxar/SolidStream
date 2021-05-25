@@ -91,7 +91,7 @@ class StreamController extends AbstractController
                                      Response::HTTP_BAD_REQUEST);
         }
     
-        return new JsonResponse(["message"=>"Created stream"]);
+        return new JsonResponse(["message"=>"Created stream","id"=>$stream->getId()]);
     }
 
 
@@ -101,7 +101,14 @@ class StreamController extends AbstractController
     public function checkstream(Request $request, LoggerInterface $logger): Response
     {
         try{
-            $id = Uuid::fromString($request->request->get('name'));
+            $requestParameter = $request->request->get('name');
+        }catch(\Throwable $t){
+            return new Response('Invalid request parameter!',Response::HTTP_BAD_REQUEST);
+        }
+        try{
+            $logger->info($requestParameter);
+            $id = Uuid::fromString($requestParameter);
+            $logger->info($id);
             $stream = $this->getDoctrine()->getRepository(Stream::class)->find($id);
         }
         catch(\Throwable $t){
