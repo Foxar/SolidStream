@@ -21,9 +21,7 @@ export default function AppRouter() {
                 <Route path="/test">
                     <h1>Test Page!</h1>
                 </Route>
-                <Route path="/player">
-                    <PlayerPage />
-                </Route>
+                <Route path="/player/:id" component={PlayerPage} />
                 <Route path="/streamingpanel">
                     <StreamPanel />
                 </Route>
