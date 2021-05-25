@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Psr\Log\LoggerInterface;
 use App\Entity\Stream;
+use App\Entity\Chat;
 use Symfony\Component\Uid\Uuid;
 use App\Service\UserService;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -81,14 +82,16 @@ class StreamController extends AbstractController
 
         //Get the manager for Stream entity
         try{
-            $streamManager = $this->getDoctrine()->getRepository(Stream::class)->createStream($user->getId());
+            $stream = $this->getDoctrine()->getRepository(Stream::class)->createStream($user->getId());
+            $this->getDoctrine()->getRepository(Chat::class)->createChat($stream->getId());
+            
         }catch(\Exception $e){
             return new JsonResponse(["message"=>"Error creating the stream!",
                                      "error"=>$e->getMessage()],
                                      Response::HTTP_BAD_REQUEST);
         }
     
-        return new JsonResponse(["message"=>"Created stream.","id" => $stream->getId()]);
+        return new JsonResponse(["message"=>"Created stream"]);
     }
 
 
