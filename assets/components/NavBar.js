@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Cookies from 'js-cookie';
 
+
 const MenuItems = [
     {
         title: 'Home',
@@ -75,3 +76,4 @@ class NavBar extends Component {
 }
 
 export default NavBar
+

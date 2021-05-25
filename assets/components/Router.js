@@ -1,5 +1,6 @@
 import React from 'react';
 import PlayerPage from './PlayerView/PlayerPage.js'
+import StreamPanel from './Streaming/StreamingPanel/StreamPanel'
 import NavBar from './NavBar.js';
 import {
     BrowserRouter as Router,
@@ -20,8 +21,9 @@ export default function AppRouter() {
                 <Route path="/test">
                     <h1>Test Page!</h1>
                 </Route>
-                <Route path="/player">
-                    <PlayerPage />
+                <Route path="/player/:id" component={PlayerPage} />
+                <Route path="/streamingpanel">
+                    <StreamPanel />
                 </Route>
                 <Route path="/">
                     <h4> Welcome to SolidStream!</h4>
