@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Collapse from '@material-ui/core/Collapse';
+
+
 
 class LoginPage extends Component {
     constructor() {
@@ -7,12 +15,14 @@ class LoginPage extends Component {
         this.state = {
             username: '',
             password: '',
-            errorMessage: ''
+            errorMessage: '',
+            error: false
         }
         this.handleUserChange = this.handleUserChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.saveError = this.saveError.bind(this);
+        this.setTimedError = this.setTimedError.bind(this);
     }
 
     handleUserChange(e) {
@@ -29,8 +39,22 @@ class LoginPage extends Component {
 
     saveError(msg) {
         this.setState({
-            errorMessage: msg
+            errorMessage: msg,
+            error: true
         });
+    }
+
+    setTimedError(msg, time = 5000) {
+        this.setState({
+            errorMessage: msg,
+            error: true
+        });
+        setTimeout(() => {
+            this.setState({
+                errorMessage: "",
+                error: false
+            });
+        }, time);
     }
 
     handleSubmit(e) {
@@ -76,7 +100,7 @@ class LoginPage extends Component {
                                         }
                                     );
                                 } else {
-                                    this.saveError("Unknown error!");
+                                    this.setTimedError("Unknown error!");
                                 }
                             });
                     }
@@ -84,10 +108,10 @@ class LoginPage extends Component {
             } else {
                 //Otherwise, display error message.
                 if (response.status == 401) {
-                    this.saveError("Invalid credentials!");
+                    this.setTimedError("Invalid credentials!");
                 }
                 else
-                    this.saveError("Unknown error!");
+                    this.setTimedError("Unknown error!");
             }
         });
     }
@@ -96,19 +120,21 @@ class LoginPage extends Component {
 
     render() {
         return (
-            <div className="loginPage">
-                <form className="loginForm" onSubmit={this.handleSubmit}>
-                    <h4>Log in to SolidStream!</h4>
-                    {this.state.errorMessage && (<p className="errorMessage">{this.state.errorMessage}</p>)}
-                    <label>Username:</label>
-                    <input type="text" value={this.state.username} onChange={this.handleUserChange}></input>
+            <Box className="loginPage" >
+                <Paper className="loginForm" square={true} elevation={2}>
+                    <form onSubmit={this.handleSubmit}>
+                        <Typography variant='h5' gutterBottom>Sign in to your account</Typography>
+                        <Collapse in={this.state.error}><Typography variant='subtitle1' className="errorMessage">{this.state.errorMessage}</Typography></Collapse>
 
-                    <label>Password:</label>
-                    <input type="password" value={this.state.password} onChange={this.handlePasswordChange}></input>
 
-                    <input type="submit" value="Log in" />
-                </form>
-            </div>
+                        <TextField className="loginInput" InputProps={{ disableUnderline: true }} variant="standard" onChange={this.handleUserChange} value={this.state.username} placeholder="Username" />
+                        <TextField className="loginInput" InputProps={{ disableUnderline: true }} variant="standard" onChange={this.handlePasswordChange} value={this.state.password} placeholder="Password" />
+
+                        <Button type="submit" size={'large'}>Log in</Button>
+
+                    </form>
+                </Paper>
+            </Box >
         );
     }
 }

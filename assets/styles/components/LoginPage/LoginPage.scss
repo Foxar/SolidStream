@@ -1,20 +1,58 @@
 
 div.loginPage{
-    padding: 5em 35% 0;
+    padding: 10em 37% 0;
     
-    form.loginForm{
-        padding: 4em;
-        background-color: rgba(255, 255, 255, 0.356);
-        display: flex;
-        flex-direction: column;
-        .errorMessage{
-            font-weight: bold;
-            padding: 1em;
-            background-color: rgba(255, 0, 0, 0.459);
-        }
-        input {
-            margin-top: 5px;
-            margin-bottom: 15px;
+    .loginForm{
+        background-color: $primary-color;
+        form
+        {
+            color: white;
+            text-align: center;
+            padding: 4em;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            h5 {
+                margin-bottom: 1em;
+            }
+            .errorMessage{
+                transition: height 5s ease-in;
+                overflow: hidden;
+                font-weight: bold;
+                padding: 1em;
+                background-color: rgba(255, 0, 0, 0.459);
+                margin: 1em 0;
+            }
+
+            .loginInput {
+                
+                /* Change the white to any color */
+                input,
+                input:-webkit-autofill,
+                input:-webkit-autofill:hover, 
+                input:-webkit-autofill:focus, 
+                input:-webkit-autofill:active
+                {
+                    background-color: $primary-color-light;
+                    $height: 15px;
+                    padding: $height;
+                    margin-bottom: 2em;
+                    border-radius: 5px;
+
+                    /*This is the only fix for weird background-color autofill behavior setting background to white.*/
+                    $autofillFix: $height *1.8;
+                    -webkit-box-shadow: 0 0 0 $autofillFix $primary-color-light inset !important;
+                    box-shadow: 0 0 0 $autofillFix $primary-color-light inset !important;
+                }
+
+            }
+            button {
+                width: 50%;
+                margin: 0 25%;
+                background-image: linear-gradient(30deg,#8e24aa,#c158dc);
+                border-radius: 4em;
+                color: white;
+            }
         }
 
     }
