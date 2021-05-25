@@ -1,6 +1,6 @@
 import React from 'react';
 import PlayerPage from './PlayerView/PlayerPage.js'
-import NavBar from './NavBar/NavBar.js';
+import NavBar from './NavBar.js';
 import {
     BrowserRouter as Router,
     Switch,
