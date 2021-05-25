@@ -27,6 +27,9 @@
             <clover outputFile="clover.xml" />
         </report>
     </coverage>
+    <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+    </extensions>
 
 
     <!-- Run `composer require symfony/phpunit-bridge` before enabling this extension -->
