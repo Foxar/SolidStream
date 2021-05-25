@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
+import Chat from '../StreamChat/Chat';
 
 
 class StreamPlayer extends Component {
@@ -49,9 +50,12 @@ class StreamPlayer extends Component {
         }
         else {
             return (
-                <ReactPlayer playing={true} muted={true}
-                    url={this.state.streamUrl} onError={this.refreshSoon}
-                />
+                <div className="streamPlayer">
+                    <ReactPlayer playing={true} muted={true} width={'75%'} height={'auto'}
+                        url={this.state.streamUrl} onError={this.refreshSoon}
+                    />
+                    <Chat />
+                </div>
             );
         }
     }

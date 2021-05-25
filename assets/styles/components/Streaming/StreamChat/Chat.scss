@@ -1,0 +1,20 @@
+.chat{
+    background-color: rgba(255, 255, 255, 0.371);
+    padding: 2em;
+    border: 1px solid yellowgreen;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-grow: 2;
+    .chatMessages{
+        padding: 2em;
+        background-color: rgba(255, 255, 255, 0.775);
+    }
+    .chatInput{
+        display: flex;
+        flex-direction: row;
+        input{
+            flex-grow: 2;
+        }
+    }
+};
