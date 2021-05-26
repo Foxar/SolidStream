@@ -7,7 +7,13 @@ $secondary-color: #AB47BC;
 $secondary-color-light: #BA68C8;
 $secondary-color-dark: #9C27B0;
 
+//External imports
 @import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap.css";
+
+//Base
+@import './base/Scrollbar.scss';
+
+//Components
 @import './components/NavBar.scss';
 @import './components/PlayerView/PlayerPage.scss';
 @import './components/LoginPage/LoginPage.scss';
