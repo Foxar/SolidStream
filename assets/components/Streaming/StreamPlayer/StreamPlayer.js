@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import Chat from '../StreamChat/Chat';
+import Paper from '@material-ui/core/Paper';
 
 
 class StreamPlayer extends Component {
@@ -50,12 +51,12 @@ class StreamPlayer extends Component {
         }
         else {
             return (
-                <div className="streamPlayer">
+                <Paper square={true} elevation={4} className="streamPlayer">
                     <ReactPlayer playing={true} muted={true} width={'75%'} height={'auto'}
                         url={this.state.streamUrl} onError={this.refreshSoon}
                     />
                     <Chat />
-                </div>
+                </Paper>
             );
         }
     }
