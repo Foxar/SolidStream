@@ -9,6 +9,7 @@ import {
     Route,
 } from 'react-router-dom';
 import LoginPage from './LoginPage/LoginPage.js';
+import RegistrationPage from './RegistrationPage/RegistrationPage.js';
 
 export default function AppRouter() {
     return (
@@ -17,6 +18,9 @@ export default function AppRouter() {
             <Switch>
                 <Route path="/login">
                     <LoginPage />
+                </Route>
+                <Route path="/register">
+                    <RegistrationPage />
                 </Route>
                 <Route path="/test">
                     <h1>Test Page!</h1>
