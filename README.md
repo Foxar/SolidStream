@@ -1,5 +1,7 @@
 # SolidStream
 
+<img src="https://i.imgur.com/4k7LAO8.jpeg">
+
 ## About
 
 SolidStream is a training project aimed at learning React.js and Symfony by creating a simple fullstack web application allowing users to view as well as publish live video streams.
