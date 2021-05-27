@@ -15,24 +15,30 @@ class PlayerPage extends Component {
 
         const { match: { params } } = this.props;
 
-        let requestData = new FormData();
-        requestData.append('name', params.id);
-        const responsePromise = fetch('http://localhost:8000/api/checkstream', {
-            method: 'POST',
-            body: requestData
-        });
-        responsePromise.then(response => {
-            if (response.ok) {
-                this.setState({
-                    streamID: params.id,
-                    loaded: true
-                });
-            } else {
-                this.setState({
-                    errorMessage: "Failed to load the stream."
-                });
-            }
-        })
+        if (params.id !== 'test') {
+            let requestData = new FormData();
+            requestData.append('name', params.id);
+            const responsePromise = fetch('http://localhost:8000/api/checkstream', {
+                method: 'POST',
+                body: requestData
+            });
+            responsePromise.then(response => {
+                if (response.ok) {
+                    this.setState({
+                        streamID: params.id,
+                        loaded: true
+                    });
+                } else {
+                    this.setState({
+                        errorMessage: "Failed to load the stream."
+                    });
+                }
+            })
+        } else {
+            this.setState({
+                loaded: true
+            })
+        }
 
     }
     render() {

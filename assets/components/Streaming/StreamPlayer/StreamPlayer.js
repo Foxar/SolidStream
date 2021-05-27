@@ -7,6 +7,8 @@ import Paper from '@material-ui/core/Paper';
 class StreamPlayer extends Component {
     constructor(props) {
         super();
+        console.log("streamid");
+        console.log(props.streamID);
         this.state = {
             streamID: props.streamID,
             refreshing: false
