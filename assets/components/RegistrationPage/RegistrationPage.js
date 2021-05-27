@@ -49,7 +49,7 @@ class RegistrationPage extends Component {
                             <TextField className="registrationInput" name="password" type="password" InputProps={{ disableUnderline: true }} variant="standard" onChange={this.handleInputChange} value={this.state.password} placeholder="Password" />
                             <TextField className="registrationInput" name="passwordConfirm" type="password" InputProps={{ disableUnderline: true }} variant="standard" onChange={this.handleInputChange} value={this.state.passwordConfirm} placeholder="Confirm password" />
 
-                            <Button type="submit" size={'large'}>Register</Button>
+                            <Button variant='contained' type="submit" size={'large'}>Register</Button>
                             <Typography className="loginReminder" variant="subtitle2">Already a member? <a href="/login">Log in</a></Typography>
                         </form>
                     </Box>
