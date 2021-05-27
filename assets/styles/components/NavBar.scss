@@ -1,161 +1,77 @@
-.NavBarItems{
-    background: linear-gradient(90deg, rgb(0,184,255) 0%, rgba(73,0,255,1) 100%);
-    height: 80px;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-}
-
-
-.navbar-logo{
-    color:rgb(255,0,193);
-    display: flex;
-    justify-self: start;
-    margin-left: 0px;
-    cursor:pointer;
-}
-
-.eye-logo{
-    margin-left: 0.5rem;
-    font-size: 3rem;
-}
-
-.nav-menu{
-    display: grid;
-    grid-template-columns: repeat(5,auto);
-    grid-gap: 10px;
-    list-style: none;
-    text-align: center;
-    width: 70vw;
-    justify-content: end;
-    margin-right: 2rem;
-}
-
-.nav-links {
-    color: black;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-}
-.nav-links:hover{
-    background-color: rgb(255,0,193);
-    border-radius: 4px;
-    color:white;
-    transition: all 0.2s ease-out;
-}
-
-.nav-links-login{
-    padding: 8px 20px;
-    border-radius: 4px;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    background-color: rgb(150, 0, 255);
-    font-size: 20px;
-    color: white;
-    text-decoration: none;
-}
-
-.nav-links-login:hover{
-    transition: all 0.3s ease-out;
-    background: white;
-    color: #ff00c1;
-    transition: 250ms;
-}
-
-.menu-icon{
-    display:none;
+.list{
+    width: 400px;
 }
 
 .logo{
     color: rgb(255,0,193);
-    text-decoration: none;
 }
 
-@media screen and (max-width: 600px){
-    .NavBarItems{
-        position: relative;
-    }
+.navbar{
+    display: flex;
+    justify-content: space-between;
+}
 
-    .nav-menu {
-        display: flex;
-        flex-direction: column;
-        margin:0;
-        width: 100%;
-        height: 500px;
-        position:absolute;
-        top: 80px;
-        right: -100%;
-        opacity: 1;
-        transition: all 0.5s ease;
-        align-content: center;
-    }
+.nav-menu{
+    display: flex;
+    justify-content: space-between;
+}
 
-    .nav-menu.active{
-        background: rgb(255,0,193);
-        margin: 0;
-        right: 0;
-        opacity: 1;
-        align-self: center;
-        transition: all 0.5s ease;
-        z-index: 1;
-    }
+.nav-links{
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    border-radius: 4px;
+}
 
-    .nav-links{
-        text-align: center;
-        padding: 2rem;
-        margin:0;
-        width: 100%;
-        display: table;
-    }
+.nav-links:hover{
+    border-radius: 4px;
+    color: black;
+    background-color: white;
+    transition: all 0.2s ease-in-out;
+}
 
-    .nav-links:hover{
-        background-color: rgba(73,0,255,1);
-        border-radius: 4px;
-    }
+.nav-links-login{
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    background-color: rgb(255,0,193);
+    border-radius: 4px;
+}
 
-    .navbar-logo{
-        position: absolute;
-        left: 0;
-    }
+.nav-links-login:hover{
+    text-decoration: none;
+    text-transform: uppercase;
+    color: rgb(255,0,193);
+    background-color: white;
+    transition: all 0.2s ease-out;
+}
 
-    .menu-icon{
-        display: block;
-        position:absolute;
-        top: 0;
-        right: 0;
-        transform: translate(-100%, 60%);
-        font-size: 1.8rem;
-        cursor: pointer;
+.nav-links-drawer{
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+}
 
+.nav-links-drawer:hover{
+    color: $secondary-color-light;
+    transition: all 0.2s ease-out;
+}
 
-    }
+.nav-links-login-drawer{
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+}
 
-    .fa-times {
-        color: black;
-        font-size: 2rem;
-    }
+.nav-links-login-drawer:hover{
+    text-decoration: none;
+    text-transform: uppercase;
+    color: rgb(255,0,193);
+    background-color: white;
+    transition: all 0.2s ease-out;
+}
 
-    .nav-links-login{
-        display: block;
-        text-decoration: none;
-        color: white;
-        text-align: center;
-        padding: 2rem;
-        margin: 0;
-        border-radius: 4px;
-        width: 100%;
-        background: #9600ff;
-        font-size: 3rem;
-    }
-
-    .nav-links-login:hover{
-        background: white;
-        color: black;
-        transition: 250ms;
-    }
-
+//weird white backgroud workaround
+.MuiPaper-elevation16{
+    background-color: $primary-color;
 }
