@@ -28,12 +28,14 @@ class LoginPage extends Component {
     }
 
     handleUserChange(e) {
+        console.log(e);
         this.setState({
             username: e.target.value
         });
     }
 
     handlePasswordChange(e) {
+        console.log(e);
         this.setState({
             password: e.target.value
         });
@@ -75,7 +77,7 @@ class LoginPage extends Component {
 
 
                         <TextField className="loginInput" InputProps={{ disableUnderline: true }} variant="standard" onChange={this.handleUserChange} value={this.state.username} placeholder="Username" />
-                        <TextField className="loginInput" InputProps={{ disableUnderline: true }} variant="standard" onChange={this.handlePasswordChange} value={this.state.password} placeholder="Password" />
+                        <TextField className="loginInput" type="password" InputProps={{ disableUnderline: true }} variant="standard" onChange={this.handlePasswordChange} value={this.state.password} placeholder="Password" />
 
                         <Button type="submit" size={'large'}>Log in</Button>
 
