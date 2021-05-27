@@ -1,5 +1,23 @@
-div.streamPlayer{
-    display: flex;
-    flex-direction: row;
+.streamBox{
+    
+    div.streamPlayer{
+        display: flex;
+        flex-direction: row;
 
+    }
+
+    .streamInfo{
+        .streamerAvatar{
+            width: 5%;
+            height: auto;
+        }
+        h4{
+            margin-top: 15px;
+        }
+        padding: 5%;
+        background-color: $primary-color-light;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    
 }

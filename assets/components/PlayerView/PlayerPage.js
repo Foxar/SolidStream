@@ -1,4 +1,5 @@
 
+import { Typography } from '@material-ui/core';
 import React, { Component } from 'react';
 import StreamPlayer from '../Streaming/StreamPlayer/StreamPlayer';
 
@@ -44,7 +45,6 @@ class PlayerPage extends Component {
     render() {
         return (
             <div className="playerPage">
-                <h4>Stream:</h4>
                 {this.state.errorMessage && (<p className="errorMessage">{this.state.errorMessage}</p>)}
                 {this.state.loaded ? <StreamPlayer streamID={this.state.streamID} /> : <h5>Loading...</h5>}
             </div>

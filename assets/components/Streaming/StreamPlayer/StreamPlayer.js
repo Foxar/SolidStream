@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import Chat from '../StreamChat/Chat';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 
 
 class StreamPlayer extends Component {
@@ -53,12 +56,19 @@ class StreamPlayer extends Component {
         }
         else {
             return (
-                <Paper square={true} elevation={4} className="streamPlayer">
-                    <ReactPlayer playing={true} muted={true} width={'75%'} height={'auto'}
-                        url={this.state.streamUrl} onError={this.refreshSoon}
-                    />
-                    <Chat />
-                </Paper>
+                <Box className="streamBox">
+                    <Paper square={true} elevation={4} className="streamPlayer">
+                        <ReactPlayer playing={true} muted={true} width={'75%'} height={'auto'}
+                            url={this.state.streamUrl} onError={this.refreshSoon}
+                        />
+                        <Chat />
+                    </Paper>
+                    <Paper className="streamInfo">
+                        <Avatar className='streamerAvatar' size='large' src={`https://i.pravatar.cc/150?u='John Harpin'`} />
+                        <Typography variant='h4'>John Harpin is streaming:</Typography>
+                        <Typography variant='h5'>The funny bunny stream</Typography>
+                    </Paper>
+                </Box>
             );
         }
     }
