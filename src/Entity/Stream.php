@@ -30,7 +30,7 @@ class Stream
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="stream", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="stream")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Streamer;

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Stream;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;
@@ -39,6 +40,7 @@ class StreamRepository extends ServiceEntityRepository
         
         $this->em->persist($newStream);
         $this->em->flush();
+        return $newStream;
     }
 
     //Returns a JSON array

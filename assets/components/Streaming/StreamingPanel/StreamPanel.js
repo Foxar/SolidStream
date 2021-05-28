@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import StreamPlayer from '../StreamPlayer/StreamPlayer'
 import Cookies from 'js-cookie';
+import { setTimedError } from '../../../services/timed/setTimedError';
+import { setTimedInfo } from '../../../services/timed/setTimedInfo';
 
 class StreamPanel extends Component {
     constructor() {
@@ -13,24 +15,11 @@ class StreamPanel extends Component {
         }
         this.handleStartStream = this.handleStartStream.bind(this);
         this.handleStopStream = this.handleStopStream.bind(this);
-        this.setTimedError = this.setTimedError.bind(this);
-        this.setTimedInfo = this.setTimedInfo.bind(this);
+        this.setTimedError = setTimedError.bind(this);
+        this.setTimedInfo = setTimedInfo.bind(this);
         this.setTimedDeleteNotice = this.setTimedDeleteNotice.bind(this);
     }
 
-    setTimedError(msg, time = 5000) {
-        this.setState({ errorMessage: msg });
-        setTimeout(() => {
-            this.setState({ errorMessage: "" });
-        }, time);
-    }
-
-    setTimedInfo(msg, time = 5000) {
-        this.setState({ infoMessage: msg });
-        setTimeout(() => {
-            this.setState({ infoMessage: "" });
-        }, time);
-    }
 
     setTimedDeleteNotice(msg, time = 5000) {
         this.setState({ deleteMessage: msg });
@@ -58,9 +47,9 @@ class StreamPanel extends Component {
                 );
             }
             else if (response.status == 401) {
-                this.setState({ errorMessage: "Authorization error, please log in!" });
+                this.setTimedError("Authorization error, please log in!");
             } else {
-                this.setState({ errorMessage: "Unknown error!" });
+                this.setTimedError("Unknown error!");
             }
         });
         this.forceUpdate();

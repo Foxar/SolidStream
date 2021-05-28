@@ -1,0 +1,82 @@
+
+div.registrationPage{
+    padding: 10em 25% 0;
+    
+    .registrationForm{
+        background-color: $primary-color;
+        display: flex;
+        flex-direction: row;
+        .welcomeBox{
+            flex-shrink: 2;
+            text-align: center;
+            color: white;
+            padding: 5% 10%;
+            background-image: linear-gradient(30deg,$primary-color-light,$secondary-color);
+        }
+        .formBox
+        {
+            width: 45%;
+            flex-grow: 5;
+            form
+            {
+                color: white;
+                text-align: center;
+                padding: 4em 20%;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                h5 {
+                    margin-bottom: 1em;
+                }
+                .errorMessage{
+                    transition: height 5s ease-in;
+                    overflow: hidden;
+                    font-weight: bold;
+                    padding: 1em;
+                    background-color: rgba(255, 0, 0, 0.459);
+                    margin: 1em 0;
+                }
+
+                .registrationInput {
+                    
+                    /* Change the white to any color */
+                    input,
+                    input:-webkit-autofill,
+                    input:-webkit-autofill:hover, 
+                    input:-webkit-autofill:focus, 
+                    input:-webkit-autofill:active
+                    {
+                        background-color: $primary-color-light;
+                        $height: 15px;
+                        padding: $height;
+                        margin-bottom: 2em;
+                        border-radius: 5px;
+
+                        /*This is the only fix for weird background-color autofill behavior setting background to white.*/
+                        $autofillFix: $height *1.8;
+                        -webkit-box-shadow: 0 0 0 $autofillFix $primary-color-light inset !important;
+                        box-shadow: 0 0 0 $autofillFix $primary-color-light inset !important;
+                    }
+
+                }
+                .loginReminder {
+                    margin-top: 5%;
+                    a {
+                        text-decoration: none;
+                        color: $secondary-color-dark;
+                        font-weight: bolder;
+                    }
+                }
+
+                button {
+                    width: 50%;
+                    margin: 0 25%;
+                    background-image: linear-gradient(30deg,#8e24aa,#c158dc);
+                    border-radius: 4em;
+                    color: white;
+                }
+            }
+        }
+
+    }
+}

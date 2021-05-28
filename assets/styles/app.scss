@@ -1,9 +1,28 @@
+$primary-color: #546e7a;
+$primary-color-light: #607d8b;
+$primary-color-dark: #455a64;
+$primary-color-darker: #37474f;
+
+$secondary-color: #AB47BC;
+$secondary-color-light: #BA68C8;
+$secondary-color-dark: #9C27B0;
+
+//External imports
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap.css";
+
+//Base
+@import './base/Scrollbar.scss';
+
+//Components
 @import './components/NavBar.scss';
 @import './components/PlayerView/PlayerPage.scss';
 @import './components/LoginPage/LoginPage.scss';
+@import './components/RegistrationPage/RegistrationPage.scss';
 @import './components/Streaming/StreamingPanel/StreamingPanel.scss';
+@import './components/Streaming/StreamChat/Chat.scss';
+@import './components/Streaming/StreamPlayer/StreamPlayer.scss';
 body {
-    background-color: rgb(255, 254, 184);
+    background-color: $primary-color-dark;
     margin: 0;
 
 }
