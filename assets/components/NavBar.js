@@ -1,6 +1,20 @@
 import React, {Component} from 'react';
-import Cookies from 'js-cookie';
-
+import { StylesProvider } from "@material-ui/core/styles";
+import {
+    Drawer,
+    AppBar,
+    Toolbar,
+    Container,
+    IconButton,
+    List,
+    ListItem,
+    ListItemText,
+    Hidden
+  } from '@material-ui/core';
+import { Visibility } from '@material-ui/icons';
+import { useState } from "react";
+import { Menu } from "@material-ui/icons";
+import {Link} from "react-router-dom";
 
 const MenuItems = [
     {
@@ -30,50 +44,90 @@ const MenuItems = [
     }
 ]
 
-class NavBar extends Component {
+function SideDrawer(){
+    const [state, setState] = useState({ right: false });
 
-    constructor(){
-        super();
-        this.state = {
-            clicked: false
-        }
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        this.setState({clicked: !this.state.clicked})
-    }
-
-    
-
-    render(){
-        return(
-            <div className="NavBarItems">
-                <h1 className="navbar-logo">
-                    <a href="/" className="logo"><i className="fas fa-eye eye-logo"></i></a>
-                </h1>
-                <div className="menu-icon" onClick={this.handleClick}>
-                    <i className={this.state.clicked ? "fas fa-times" : "fas fa-bars"}></i>
-                </div>
-                <ul className={this.state.clicked ? "nav-menu active" : "nav-menu"}>
-                    {MenuItems.map((item, index) => {
-                        return(
-                            <li key={index}>
-                                <a className={item.cName} href={item.url}>
-                                    {item.title}
-                                </a>
-                            </li>
-                        )
-                    })}
-                </ul>
-                <div className="profile">
-                    <p>Logged in as:</p>
-                    <p className="loggedInAs">{Cookies.get('username')}</p>
-                </div>
-            </div>
-        )
-    }    
+    const toggleDrawer = (anchor, open) => event => {
+    if (
+        event.type === "keydown" &&
+        (event.key === "Tab" || event.key === "Shift")
+      ) {
+        return;
+      }
+  
+      setState({ [anchor]: open });
+    };
+  
+    const sideDrawerList = anchor => (
+        <div
+            className="list"
+            role="presentation"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+        >
+            <List component="nav" className="nav-menu-drawer">
+                {MenuItems.map((item, index) => {
+                    return(
+                        <a href={item.url} key={item.title} className={item.cName + "-drawer"}>
+                            <ListItem button>
+                                <ListItemText primary={item.title} />
+                            </ListItem>
+                        </a>
+                    )
+                })}
+            </List>
+        </div>
+    );
+  
+    return (
+            <React.Fragment>
+                <IconButton
+                edge="start"
+                aria-label="menu"
+                onClick={toggleDrawer("right", true)}
+                >
+                    <Menu fontSize="large" style={{ color: `white` }} />
+                </IconButton>
+        
+                <Drawer
+                anchor="right"
+                open={state.right}
+                onClose={toggleDrawer("right", false)}
+                >
+                    {sideDrawerList("right")}
+                </Drawer>
+            </React.Fragment>
+    );
 }
 
-export default NavBar
-
+export default function NavBar(){
+    return(
+        <StylesProvider injectFirst>
+            <AppBar position="static">
+                <Toolbar>
+                    <Container maxWidth="md" className="navbar">
+                        <IconButton component={Link} to="/" edge="start">
+                            <Visibility fontSize="large" className="logo"/>
+                        </IconButton>
+                        <Hidden smDown>
+                            <List component="nav" className="nav-menu">
+                                {MenuItems.map((item, index) => {
+                                    return(
+                                        <a href={item.url} key={item.title} className={item.cName}>
+                                            <ListItem button>
+                                                <ListItemText primary={item.title} />
+                                            </ListItem>
+                                        </a>
+                                    )
+                                })}
+                            </List>
+                        </Hidden>
+                        <Hidden mdUp>
+                            <SideDrawer/>
+                        </Hidden>
+                    </Container>
+                </Toolbar>
+            </AppBar>
+        </StylesProvider>
+    );
+}
